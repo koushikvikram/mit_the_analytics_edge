@@ -32,4 +32,8 @@ Population = c(23050, 11125)
 NewCountryData = data.frame(Country, LifeExpectancy, Population)
 AllCountryData = rbind(CountryData, NewCountryData) # combines data frames by stacking the rows
 
+######### Loading Data Files
+# navigate to the directory where the data file is located
+
+getwd()
 
