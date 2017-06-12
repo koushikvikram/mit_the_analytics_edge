@@ -90,3 +90,59 @@ table(mvt$Month, mvt$Arrest) # January
 # Throughout this problem, and in general, you can save your plot to a file. For more information,
 # http://www.stat.berkeley.edu/~s133/saving.html 
 # very clearly explains the process.
+# First, let's make a histogram of the variable Date. We'll add an extra argument, to specify the number of bars we want in our histogram. In your R console, type
+# hist(mvt$Date, breaks=100)
+hist(mvt$Date, breaks=100)
+# Looking at the histogram, answer the following questions.
+
+# In general, does it look like crime increases or decreases from 2002 - 2012?
+# Decreases
+
+# In general, does it look like crime increases or decreases from 2005 - 2008?
+# Decreases
+
+# In general, does it look like crime increases or decreases from 2009 - 2011?
+# Increases
+
+# Now, let's see how arrests have changed over time. Create a boxplot of the variable "Date", sorted by the variable "Arrest" 
+boxplot(mvt$Date ~ mvt$Arrest)
+# (if you are not familiar with boxplots and would like to learn more, check out this tutorial - https://www.r-bloggers.com/box-plot-with-r-tutorial/). 
+# In a boxplot, the bold horizontal line is the median value of the data, the box shows the range of values between the first quartile 
+# and third quartile, and the whiskers (the dotted lines extending outside the box) show the minimum and maximum values, 
+# excluding any outliers (which are plotted as circles). Outliers are defined by first computing the difference between the first 
+# and third quartile values, or the height of the box. This number is called the Inter-Quartile Range (IQR). 
+# Any point that is greater than the third quartile plus the IQR or less than the first quartile minus the IQR is considered an outlier.
+
+# Does it look like there were more crimes for which arrests were made in the first half of the time period or the second half of the time 
+# period? (Note that the time period is from 2001 to 2012, so the middle of the time period is the beginning of 2007.)
+# Ans - First half
+# Note that the median(which refers to a value or quantity lying at the midpoint of a frequency distribution of observed value) for TRUE
+# is somewhere around 2005. So, more than half the crimes occured before 2007.
+
+# Let's investigate this further. Use the table function for the next few questions.
+# For what proportion of motor vehicle thefts in 2001 was an arrest made?
+# Note: in this question and many others in the course, we are asking for an answer as a proportion. 
+# Therefore, your answer should take a value between 0 and 1.
+mvt_2001 = subset(mvt, Year==2001) # let's first create a data frame with data only from year 2001 
+str(mvt_2001) # get the number of observations from this
+table(mvt_2001$Arrest) # get the number of TRUE values
+# divide both
+# another way to do it
+nrow(subset(mvt_2001, Arrest==TRUE))/nrow(mvt_2001) # 0.1041173
+
+# For what proportion of motor vehicle thefts in 2007 was an arrest made?
+mvt_2007 = subset(mvt, Year==2007)
+str(mvt_2007)
+table(mvt_2007$Arrest)
+nrow(subset(mvt_2007, Arrest == TRUE))/nrow(mvt_2007) # 0.08487395
+
+# For what proportion of motor vehicle thefts in 2012 was an arrest made?
+mvt_2012 = subset(mvt, Year == 2012)
+str(mvt_2012)
+table(mvt_2012$Arrest)
+# Since there may still be open investigations for recent crimes, this could explain the trend we are seeing in the data. 
+# There could also be other factors at play, and this trend should be investigated further. 
+# However, since we don't know when the arrests were actually made, our detective work in this area has reached a dead end.
+
+
+
