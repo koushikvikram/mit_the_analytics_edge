@@ -85,3 +85,8 @@ max(table(mvt$Weekday)) # Friday
 table(mvt$Month, mvt$Arrest) # January
 
 
+# Problem 3 - Visualizing Crime Trends
+# Now, let's make some plots to help us better understand how crime has changed over time in Chicago. 
+# Throughout this problem, and in general, you can save your plot to a file. For more information,
+# http://www.stat.berkeley.edu/~s133/saving.html 
+# very clearly explains the process.
