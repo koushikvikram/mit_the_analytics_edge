@@ -145,4 +145,49 @@ table(mvt_2012$Arrest)
 # However, since we don't know when the arrests were actually made, our detective work in this area has reached a dead end.
 
 
+# Problem 4 - Popular Locations
+# Analyzing this data could be useful to the Chicago Police Department when deciding where to allocate resources. 
+# If they want to increase the number of arrests that are made for motor vehicle thefts, where should they focus their efforts?
 
+# We want to find the top five locations where motor vehicle thefts occur. 
+# If you create a table of the LocationDescription variable, 
+# it is unfortunately very hard to read since there are 78 different locations in the data set. 
+# By using the sort function, we can view this same table, but sorted by the number of observations in each category. 
+# In your R console, type:
+# sort(table(mvt$LocationDescription))
+sort(table(mvt$LocationDescription))
+
+# Which locations are the top five locations for motor vehicle thefts, excluding the "Other" category? 
+# Street, PARKING LOT/GARAGE(NON.RESID.), ALLEY, DRIVEWAY - RESIDENTIAL, GAS STATION
+
+
+# Create a subset of your data, only taking observations for which the theft happened in one of these five locations, 
+# and call this new data set "Top5". To do this, you can use the | symbol. 
+# In lecture, we used the & symbol to use two criteria to make a subset of the data. 
+# To only take observations that have a certain value in one variable or the other, 
+# the | character can be used in place of the & symbol. This is also called a logical "or" operation.
+# Alternately, you could create five different subsets, and then merge them together into one data frame using rbind.
+Top5 = subset(mvt, LocationDescription == "STREET" | LocationDescription == "PARKING LOT/GARAGE(NON.RESID.)" | 
+                LocationDescription == "ALLEY" | LocationDescription == "GAS STATION" | LocationDescription == "DRIVEWAY - RESIDENTIAL")
+# How many observations are in Top5?
+str(Top5) # 177510
+
+# R will remember the other categories of the LocationDescription variable from the original dataset, so running table(Top5$LocationDescription) 
+# will have a lot of unnecessary output. To make our tables a bit nicer to read, we can refresh this factor variable. 
+# In your R console, type:
+# Top5$LocationDescription = factor(Top5$LocationDescription)
+Top5$LocationDescription = factor(Top5$LocationDescription)
+# If you run the str or table function on Top5 now, you should see that LocationDescription now only has 5 values, as we expect.
+str(Top5)
+# Use the Top5 data frame to answer the remaining questions.
+# One of the locations has a much higher arrest rate than the other locations. 
+# Which is it? Please enter the text in exactly the same way as how it looks in the answer options for Problem 4.1.
+table(Top5$LocationDescription, Top5$Arrest) # GAS STATION
+
+# On which day of the week do the most motor vehicle thefts at gas stations happen?
+mvt_gas_station = subset(Top5, LocationDescription == "GAS STATION")
+table(mvt_gas_station$Weekday) # Saturday
+
+# On which day of the week do the fewest motor vehicle thefts in residential driveways happen?
+mvt_residential_driveways = subset(Top5, LocationDescription == "DRIVEWAY - RESIDENTIAL")
+table(mvt_residential_driveways$Weekday) # Saturday
