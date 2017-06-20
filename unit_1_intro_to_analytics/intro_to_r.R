@@ -25,6 +25,8 @@ CountryData = data.frame(Country, LifeExpectancy) # we can combine the Country a
 # adding another variable to our data frame
 CountryData$Population = c(199000, 1390000, 1240000, 7997, 318000)
 
+# if you try CountryData$Population = c(199000), R fills all rows of Population with 199000
+
 # adding new observations for Australia and Greece
 Country = c("Australia", "Greece")
 LifeExpectancy = c(82, 81)
